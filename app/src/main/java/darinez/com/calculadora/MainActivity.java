@@ -36,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Integer op2=0;
     Integer result=0;
     Integer ans = 0 ;
-    Integer typeOP;
+    Integer typeOP=0;
     boolean existsfirstOP=false;
     boolean existsSecondOP=false;
     Button bcall;
@@ -132,12 +132,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         op1 = savedInstanceState.getInt("FirstOp");
         op2 = savedInstanceState.getInt("SecondOp");
         result = savedInstanceState.getInt("result");
-        typeOP = savedInstanceState.getInt("typeOp");
+        typeOP = savedInstanceState.getInt("typeOP");
         existsfirstOP = savedInstanceState.getBoolean("existsfirstOP");
         existsSecondOP = savedInstanceState.getBoolean("existsSecondOP");
         String screenText = savedInstanceState.getString("Screen");
         screen.setText(screenText);
-        Log.v("Info: ", "Recuperando estado");
+        Log.v("Info: ", op1.toString()+ " " + op2.toString()+ " " + result.toString()+ " " + typeOP.toString());
     }
 
     public void onClick(View v) {
