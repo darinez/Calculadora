@@ -39,6 +39,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Integer typeOP=0;
     boolean existsfirstOP=false;
     boolean existsSecondOP=false;
+    boolean resolved=false;
     Button bcall;
     Button bans;
 
@@ -122,7 +123,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         outstate.putString("Screen", screenText);
         outstate.putInt("typeOP", typeOP);
         outstate.putBoolean("existsfirstOP", existsfirstOP);
-        outstate.putBoolean("existsSecondOP",existsSecondOP);
+        outstate.putBoolean("existsSecondOP", existsSecondOP);
         Log.v("Info: ", "Guardando estado");
     }
 
@@ -137,121 +138,61 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         existsSecondOP = savedInstanceState.getBoolean("existsSecondOP");
         String screenText = savedInstanceState.getString("Screen");
         screen.setText(screenText);
-        Log.v("Info: ", op1.toString()+ " " + op2.toString()+ " " + result.toString()+ " " + typeOP.toString());
+        Log.v("Info: ", op1.toString() + " " + op2.toString() + " " + result.toString() + " " + typeOP.toString());
     }
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button0:
-                if(!existsfirstOP) {
-                    op1= op1*10;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP)  op1= op1*10;
+                else op2= op2*10;
+                drawScreen("0");
+                break;
             case R.id.button1:
-                if(!existsfirstOP) {
-                    op1= op1*10+1;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+1;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+1;
+                else op2= op2*10+1;
+                drawScreen("1");
+                break;
             case R.id.button2:
-                if(!existsfirstOP) {
-                    op1= op1*10+2;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+2;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+2;
+                else op2= op2*10+2;
+                drawScreen("2");
+                break;
             case R.id.button3:
-                if(!existsfirstOP) {
-                    op1= op1*10+3;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+3;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+3;
+                else op2= op2*10+3;
+                drawScreen("3");
+                break;
             case R.id.button4:
-                if(!existsfirstOP) {
-                    op1= op1*10+4;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+4;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+4;
+                else op2= op2*10+4;
+                drawScreen("4");
+                break;
             case R.id.button5:
-                if(!existsfirstOP) {
-                    op1= op1*10+5;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+5;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+5;
+                else op2= op2*10+5;
+                drawScreen("5");
+                break;
             case R.id.button6:
-                if(!existsfirstOP) {
-                    op1= op1*10+6;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+6;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+6;
+                else op2= op2*10+6;
+                drawScreen("6");
+                break;
             case R.id.button7:
-                if(!existsfirstOP) {
-                    op1= op1*10+7;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+7;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+7;
+                else op2= op2*10+7;
+                drawScreen("7");
+                break;
             case R.id.button8:
-                if(!existsfirstOP) {
-                    op1= op1*10+8;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+8;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+8;
+                else op2= op2*10+8;
+                drawScreen("8");
+                break;
             case R.id.button9:
-                if(!existsfirstOP) {
-                    op1= op1*10+9;
-                    screen.setText(op1.toString());
-                    break;
-                }
-                else {
-                    op2= op2*10+9;
-                    screen.setText(op2.toString());
-                    break;
-                }
+                if(!existsfirstOP) op1= op1*10+9;
+                else op2= op2*10+9;
+                drawScreen("9");
+                break;
             case R.id.buttonsum:
                 if(op1!=0 && op1!=null) existsfirstOP=true;
                 if(op2!=0 && op2!=null) existsSecondOP=true;
@@ -260,6 +201,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     op2=0;
                 }
                 typeOP=1;
+                if(!resolved && !checkFirstZero()) drawScreen("+");
                 break;
             case R.id.buttonresta:
                 if(op1!=0 && op1!=null) existsfirstOP=true;
@@ -269,6 +211,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     op2=0;
                 }
                 typeOP=2;
+                if(!resolved && !checkFirstZero()) drawScreen("-");
                 break;
             case R.id.buttondiv:
                 if(op1!=0 && op1!=null) existsfirstOP=true;
@@ -278,6 +221,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     op2=0;
                 }
                 typeOP=3;
+                if(!resolved && !checkFirstZero()) drawScreen("/");
                 break;
             case R.id.buttonmult:
                 if(op1!=0 && op1!=null) existsfirstOP=true;
@@ -287,6 +231,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     op2=0;
                 }
                 typeOP=4;
+                if(!resolved && !checkFirstZero()) drawScreen("x");
                 break;
             case R.id.buttoneq:
                 if(typeOP==1) result=suma(op1,op2);
@@ -298,9 +243,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 op2=0;
                 typeOP=0;
                 existsfirstOP=false;
+                existsSecondOP=false;
+                resolved=true;
                 break;
             case R.id.buttonac:
-                ac();
+                allClear();
                 break;
             case R.id.buttonans:
                 screen.setText(ans.toString());
@@ -316,16 +263,31 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void call() {
-        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+op1.toString()));
         startActivity(intent);
     }
 
-    public void ac() {
+    public void allClear() {
         op1=0;
         op2=0;
         if(result!=0) ans=result;
         result=0;
+        resolved=false;
         screen.setText("0");
+    }
+
+    public void drawScreen(String simbol){
+        if(checkFirstZero()) screen.setText(simbol);
+        else if(resolved) {
+            resolved=false;
+            screen.setText(simbol);
+        }
+        else screen.append(simbol);
+    }
+
+    public boolean checkFirstZero() {
+        if(screen.getText().toString().equals("0")) return true;
+        else return false;
     }
 
     public int suma(int op1, int op2) {
