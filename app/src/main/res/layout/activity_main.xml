@@ -27,7 +27,14 @@
 
             <Button
                 android:layout_width="wrap_content"
-                android:layout_height="76dp"
+                android:layout_height="60dp"
+                android:text="Ans"
+                android:id="@+id/buttonans"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
                 android:text="AC"
                 android:id="@+id/buttonac"
                 android:layout_weight="1" />
@@ -176,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="New Button"
-                    android:id="@+id/button"
+                    android:id="@+id/buttoncall"
                     android:layout_weight="1" />
             </LinearLayout>
 

@@ -1,16 +1,16 @@
 package darinez.com.calculadora;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
@@ -35,8 +35,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     Integer op1=0;
     Integer op2=0;
     Integer result=0;
+    Integer ans = 0 ;
     Integer typeOP;
     boolean existsfirstOP=false;
+    boolean existsSecondOP=false;
+    Button bcall;
+    Button bans;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         bac = (Button) findViewById(R.id.buttonac);
         bac.setOnClickListener(this);
 
+        bcall = (Button) findViewById(R.id.buttoncall);
+        bcall.setOnClickListener(this);
+
+        bans = (Button) findViewById(R.id.buttonans);
+        bans.setOnClickListener(this);
+
         screen = (TextView) findViewById(R.id.screen);
 
     }
@@ -100,6 +110,34 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outstate){
+        super.onSaveInstanceState(outstate);
+        outstate.putInt("FirstOp", op1);
+        outstate.putInt("SecondOp", op2);
+        outstate.putInt("Result", result);
+        String screenText = (screen.getText().toString());
+        outstate.putString("Screen", screenText);
+        outstate.putInt("typeOP", typeOP);
+        outstate.putBoolean("existsfirstOP", existsfirstOP);
+        outstate.putBoolean("existsSecondOP",existsSecondOP);
+        Log.v("Info: ", "Guardando estado");
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+        op1 = savedInstanceState.getInt("FirstOp");
+        op2 = savedInstanceState.getInt("SecondOp");
+        result = savedInstanceState.getInt("result");
+        typeOP = savedInstanceState.getInt("typeOp");
+        existsfirstOP = savedInstanceState.getBoolean("existsfirstOP");
+        existsSecondOP = savedInstanceState.getBoolean("existsSecondOP");
+        String screenText = savedInstanceState.getString("Screen");
+        screen.setText(screenText);
+        Log.v("Info: ", "Recuperando estado");
     }
 
     public void onClick(View v) {
@@ -127,64 +165,166 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     break;
                 }
             case R.id.button2:
-                op1= op1*10+2;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+2;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+2;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.button3:
-                op1= op1*10+3;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+3;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+3;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.button4:
-                op1= op1*10+4;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+4;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+4;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.button5:
-                op1= op1*10+5;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+5;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+5;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.button6:
-                op1= op1*10+6;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+6;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+6;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.button7:
-                op1= op1*10+7;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+7;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+7;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.button8:
-                op1= op1*10+8;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+8;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+8;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.button9:
-                op1= op1*10+9;
-                screen.setText(op1.toString());
-                break;
+                if(!existsfirstOP) {
+                    op1= op1*10+9;
+                    screen.setText(op1.toString());
+                    break;
+                }
+                else {
+                    op2= op2*10+9;
+                    screen.setText(op2.toString());
+                    break;
+                }
             case R.id.buttonsum:
                 if(op1!=0 && op1!=null) existsfirstOP=true;
-                screen.setText("0");
-                typeOP=0;
+                if(op2!=0 && op2!=null) existsSecondOP=true;
+                if(existsfirstOP && existsSecondOP) {
+                    op1=op1+op2;
+                    op2=0;
+                }
+                typeOP=1;
                 break;
             case R.id.buttonresta:
-                resta(op1, op2);
+                if(op1!=0 && op1!=null) existsfirstOP=true;
+                if(op2!=0 && op2!=null) existsSecondOP=true;
+                if(existsfirstOP && existsSecondOP) {
+                    op1=op1-op2;
+                    op2=0;
+                }
+                typeOP=2;
                 break;
             case R.id.buttondiv:
-                div(op1, op2);
+                if(op1!=0 && op1!=null) existsfirstOP=true;
+                if(op2!=0 && op2!=null) existsSecondOP=true;
+                if(existsfirstOP && existsSecondOP) {
+                    op1=op1/op2;
+                    op2=0;
+                }
+                typeOP=3;
                 break;
             case R.id.buttonmult:
-                mult(op1, op2);
+                if(op1!=0 && op1!=null) existsfirstOP=true;
+                if(op2!=0 && op2!=null) existsSecondOP=true;
+                if(existsfirstOP && existsSecondOP) {
+                    op1=op1*op2;
+                    op2=0;
+                }
+                typeOP=4;
                 break;
             case R.id.buttoneq:
-                if(typeOP==0) result=suma(op1,op2);
+                if(typeOP==1) result=suma(op1,op2);
+                if(typeOP==2) result=resta(op1,op2);
+                if(typeOP==3) result=div(op1, op2);
+                if(typeOP==4) result=mult(op1, op2);
                 screen.setText(result.toString());
+                op1=0;
+                op2=0;
+                typeOP=0;
+                existsfirstOP=false;
                 break;
             case R.id.buttonac:
                 ac();
+                break;
+            case R.id.buttonans:
+                screen.setText(ans.toString());
+                if(!existsfirstOP) op1=ans;
+                else if(!existsSecondOP) op2=ans;
+                break;
+            case R.id.buttoncall:
+                call();
                 break;
             default:
                 break;
         }
     }
 
+    public void call() {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:934137660"));
+        startActivity(intent);
+    }
+
     public void ac() {
+        op1=0;
+        op2=0;
+        if(result!=0) ans=result;
+        result=0;
         screen.setText("0");
     }
 
@@ -193,15 +333,23 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public int resta(int op1, int op2) {
-        return 1;
+        return op1-op2;
     }
 
     public int mult(int op1, int op2) {
-        return 1;
+        return op1*op2;
     }
 
-    public int div(int op1, int op2) {
-        return 1;
+    public int div(int ope1, int ope2) {
+        if(ope1!=0 && ope2!=0) {
+            return ope1/ope2;
+        }
+        else {
+            op1=0;
+            op2=0;
+            Toast.makeText(MainActivity.this,"Error: Divendendo = 0", Toast.LENGTH_SHORT).show();
+            return 0;
+        }
     }
 
     @Override
